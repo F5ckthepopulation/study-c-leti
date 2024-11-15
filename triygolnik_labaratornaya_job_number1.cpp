@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 using std::cin;
 using std::cout;
 
@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
 
     if (isHuman)
     {
-        std::cout << "Enter coordinates X and Y, for your point" << "\n";
+        std::cout << "Enter coordinates X and Y, for your point";
     }
 
     while (true)
@@ -44,22 +44,22 @@ int main(int argc, char* argv[])
         {
             if (isHuman)
             {
-                cout << "Your point on triangle" << "\n";
+                cout << "Your point on triangle";
             }
             else
             {
-                cout << "Good" << "\n";
+                cout << "YES";
             }
         }
         else
         {
             if (isHuman)
             {
-                cout << "Nope, your point not on triangle" << "\n";
+                cout << "Nope, your point not on triangle";
             }
             else
             {
-                cout << "Nope" << "\n";
+                cout << "NO";
             }
         }
     }
