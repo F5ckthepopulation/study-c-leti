@@ -1,66 +1,62 @@
 #include <iostream>
-using std::cin;
-using std::cout;
+#include <cmath> 
+#include <string>
 
-
-
-
-//---------треугольник-----------
-bool triangle(double x, double y)
-{
-    if (x <= 3 && y <= 4 && y <= 4 - (4.0 / 3.0) * x)
-    {
-        if (x >= 0 && y >= 0)
-        {
-            return true;
-        }
-    }
-    return false;
-}
+using namespace std;
 
 int main(int argc, char* argv[])
 {
-    double x, y;
-
     bool isHuman = false;
     if (argc <= 1 || strcmp(argv[1], "false") != 0)
     {
         isHuman = true;
     }
 
-    if (isHuman)
-    {
-        std::cout << "Enter coordinates X and Y, for your point";
+    setlocale(LC_CTYPE, "RUSSIAN");
+    if (isHuman) {
+        cout << "Дан треугольник с координатами вершин (0,0)(3,0)(0,4)." << endl;
     }
+    double x = 1.0, y = 1.0;
 
-    while (true)
-    {
-        cin >> x >> y;
-        if (x == 0 && y == 0)
+    do {
+        if(isHuman) cout << "Введите координату x - ";
+        cin >> x;
+        if(isHuman) cout << "Введите координату y - ";
+        cin >> y;
+        if (x == 0 && y == 0) 
         {
             break;
         }
-        if (triangle(x, y))
+
+        if ((x >= 0 && x <= 3) && (y >= 0 && y <= 4)) 
         {
-            if (isHuman)
-            {
-                cout << "Your point on triangle";
+            if (y <= 4.0 - (4.0 / 3.0 * x)) {
+                if (isHuman) {
+                    cout << "Точка входит в треугольник." << endl;
+                }
+                else {
+                    cout << "YES" << endl;
+                }
             }
-            else
-            {
-                cout << "YES";
+            else {
+                if (isHuman) {
+                    cout << "Точка не входит в треугольник." << endl;
+                }
+                else {
+                    cout << "NO" << endl;
+                }
             }
         }
-        else
-        {
-            if (isHuman)
-            {
-                cout << "Nope, your point not on triangle";
+        else {
+            if (isHuman) {
+                cout << "Точка не входит в треугольник." << endl;
             }
-            else
-            {
-                cout << "NO";
+            else {
+                cout << "NO" << endl;
             }
         }
-    }
+
+    } while (true);
+
+    return 0;
 }
