@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
-
+#include <algorithm>
+#include <set>
+#include <vector>
 using namespace std;
 
 // Функция для ввода элементов матрицы
@@ -34,7 +36,7 @@ void editMatrix(int** matrix, int size) {
         if (row >= 0 && row < size && col >= 0 && col < size) {
             cout << "Введите новое значение: ";
             cin >> value;
-            matrix[row][col] = value; 
+            matrix[row][col] = value;
             // Обновление значения в матрице
         }
         else {
@@ -89,22 +91,59 @@ int columnSum(int** matrix, int size, int col) {
     }
     return sum;
 }
+//Индивидуальная задача
+// Вывести на экран в порядке возрастания все элементы матриц А и В, которые встречаются в матрице С
+void coomonEl(int** A, int** B, int** C, int size) {
+    // Используем set для хранения уникальных элементов из A и B
+    std::set<int> elementsFromAAndB;
 
-// Функция для замены столбцов в матрице C на основе сумм столбцов матриц A и B
-void replaceColumns(int** C, int** A, int** B, int size) {
-    for (int j = 0; j < size; j++) {
-        int sumA = columnSum(A, size, j);
-        int sumB = columnSum(B, size, j);
-        if (sumA > sumB) {
-            for (int i = 0; i < size; i++) {
-                C[i][j] = A[i][j]; // Замена столбца C на столбец A
-            }
+    // Собираем элементы из матрицы A
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            elementsFromAAndB.insert(A[i][j]);
         }
-        else if (sumB > sumA) {
-            for (int i = 0; i < size; i++) {
-                C[i][j] = B[i][j]; // Замена столбца C на столбец B
-            }
+    }
+
+    // Собираем элементы из матрицы B
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            elementsFromAAndB.insert(B[i][j]);
         }
+    }
+
+    // Используем set для хранения элементов из матрицы C
+    std::set<int> elementsInC;
+
+    // Собираем элементы из матрицы C
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            elementsInC.insert(C[i][j]);
+        }
+    }
+
+    // Вектор для хранения общих элементов
+    std::vector<int> commonElements;
+
+    // Проверяем, какие элементы из A и B встречаются в C
+    for (int element : elementsFromAAndB) {
+        if (elementsInC.find(element) != elementsInC.end()) {
+            commonElements.push_back(element);
+        }
+    }
+
+    // Сортируем общие элементы по возрастанию
+    std::sort(commonElements.begin(), commonElements.end());
+
+    // Выводим результат
+    if (commonElements.empty()) {
+        std::cout << "Нет общих элементов в матрицах A, B и C." << std::endl;
+    }
+    else {
+        std::cout << "Элементы матриц A и B, которые встречаются в матрице C (в порядке возрастания):" << std::endl;
+        for (int element : commonElements) {
+            std::cout << element << " ";
+        }
+        std::cout << std::endl;
     }
 }
 
@@ -115,7 +154,6 @@ void deleteMatrix(int** matrix, int size) {
     }
     delete[] matrix;
 }
-
 // Основная функция
 int main() {
     setlocale(LC_ALL, "Russian");
@@ -145,7 +183,7 @@ int main() {
         cout << "5. Загрузка матрицы B из файла\n";
         cout << "6. Загрузка матрицы C из файла\n";
         cout << "7. Редактирование матриц\n";
-        cout << "8. Замена столбцов в матрице C\n";
+        cout << "8. Вывести на экран в порядке возрастания все элементы матриц А и В, которые встречаются в матрице С\n";
         cout << "9. Вывод матриц\n";
         cout << "10. Сохранение матрицы A в файл\n";
         cout << "11. Сохранение матрицы B в файл\n";
@@ -206,8 +244,7 @@ int main() {
             break;
         }
         case 8: {
-            replaceColumns(C, A, B, size);
-            cout << "Столбцы в матрице C заменены на основе сумм столбцов A и B." << endl;
+            coomonEl(A, B, C, size);
             break;
         }
         case 9: {
