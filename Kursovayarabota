@@ -93,7 +93,7 @@ int columnSum(int** matrix, int size, int col) {
 }
 //Индивидуальная задача
 // Вывести на экран в порядке возрастания все элементы матриц А и В, которые встречаются в матрице С
-void coomonEl(int** A, int** B, int** C, int size) {
+void commonEl(int** A, int** B, int** C, int size) {
     // Используем set для хранения уникальных элементов из A и B
     std::set<int> elementsFromAAndB;
 
@@ -244,7 +244,7 @@ int main() {
             break;
         }
         case 8: {
-            coomonEl(A, B, C, size);
+            commonEl(A, B, C, size);
             break;
         }
         case 9: {
@@ -280,3 +280,4 @@ int main() {
     deleteMatrix(C, size);
 
     return 0;
+}
